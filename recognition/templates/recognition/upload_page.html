@@ -1,0 +1,39 @@
+{% load static %}
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.2/plyr.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'recognition/main.css' %}"> <!-- Ваш файл стилей -->
+    <script src="https://cdn.plyr.io/3.6.2/plyr.js"></script>
+    <title>CarVision Insights</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Загрузите изображение или видео</h2>
+        <form method="post" enctype="multipart/form-data" class="upload-form">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-upload">Upload</button>
+        </form>
+        {% if res_img %}
+            <div class="result">
+                <img src="{{ res_img }}" alt='result' class="result-img">
+                <a href="{{ res_img }}" download class="btn-download">Скачать изображение</a>
+            </div>
+        {% endif %}
+
+        {% if res_vid %}
+            <div class="result">
+                <video controls class="result-video">
+                    <source src="{{ res_vid }}" type="video/webm">
+                </video>
+                <a href="{{ res_vid }}" download class="btn-download">Скачать видео</a>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
